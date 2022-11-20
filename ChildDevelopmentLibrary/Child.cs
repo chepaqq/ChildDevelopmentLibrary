@@ -2,5 +2,7 @@
 
 namespace ChildDevelopmentLibrary
 {
-    
+    class Child
+    {
+    }
 }
