@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ChildDevelopmentLibrary
 {
-    public enum Period
+    public enum Status
     {
         Signed,
         IsStudying,
@@ -21,7 +21,7 @@ namespace ChildDevelopmentLibrary
 
         public void SubscribeToProgram(Child child, Program program)
         {
-            if (child.Period == Period.Signed)
+            if (child.Status == Status.Signed)
             {
                 try
                 {

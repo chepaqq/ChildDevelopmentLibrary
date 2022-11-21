@@ -6,6 +6,6 @@ namespace ChildDevelopmentLibrary
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Period Period { get; set; } = Period.Signed;
+        public Status Status { get; set; } = Status.Signed;
     }
 }
