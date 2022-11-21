@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChildDevelopmentLibrary
 {
-    public class EducationalProgram
+    public class Program
     {
     }
 }
