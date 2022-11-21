@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChildDevelopmentLibraryTest
 {
-    class EducationalWebsite
+    class EducationalWebsiteTest
     {
     }
 }
