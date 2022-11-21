@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChildDevelopmentLibrary
 {
-    public enum Period
+    public enum Status
     {
         Signed,
         IsStudying,
