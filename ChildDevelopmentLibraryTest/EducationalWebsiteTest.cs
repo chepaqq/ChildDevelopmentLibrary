@@ -37,7 +37,7 @@ namespace ChildDevelopmentLibraryTest
             //Act
             sub.Programs.Add(program);
             sub.Children.Add(child);
-            child.IsStudied = true;
+            child.Period = Period.IsStudying;
 
             //Assert
             Assert.Throws<Exception>(()=> sub.SubscribeToProgram(child, program));

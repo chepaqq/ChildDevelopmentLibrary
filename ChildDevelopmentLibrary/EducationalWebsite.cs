@@ -5,6 +5,12 @@ using System.Text;
 
 namespace ChildDevelopmentLibrary
 {
+    public enum Period
+    {
+        Signed,
+        IsStudying,
+        CompletedStudies
+    }
     public class EducationalWebsite
     {
         public string Name { get; set; }
@@ -15,7 +21,7 @@ namespace ChildDevelopmentLibrary
 
         public void SubscribeToProgram(Child child, Program program)
         {
-            if (child.IsStudied == false)
+            if (child.Period == Period.Signed)
             {
                 try
                 {
