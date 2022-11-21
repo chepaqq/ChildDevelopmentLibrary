@@ -16,5 +16,18 @@ namespace ChildDevelopmentLibrary
 
         public List<Program> Programs { get; set; } = new List<Program>();
         public List<Child> Children { get; set; } = new List<Child>();
+
+        public List<Child> GetChildrenByPeriod(List<Child> children, Period period)
+        {
+            try
+            {
+                var filter = new ChildFilter();
+                return filter.FilterByPeriod(children, period);
+            }
+            catch(Exception)
+            {
+                throw new Exception();
+            }
+        }
     }
 }
