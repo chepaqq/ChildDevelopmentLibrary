@@ -7,8 +7,8 @@ namespace ChildDevelopmentLibrary
 {
     public class ChildFilter
     {
-        public List<Child> FilterByPeriod(IEnumerable<Child> children, Period period) =>
-            children.Where(m => m.Period == period).ToList();
+        public List<Child> FilterByPeriod(IEnumerable<Child> children, Status period) =>
+            children.Where(m => m.Status == period).ToList();
 
     }
 }

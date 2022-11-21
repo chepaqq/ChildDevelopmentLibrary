@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChildDevelopmentLibrary
 {
-    public enum Period
+    public enum Status
     {
         Signed,
         IsStudying,
@@ -17,7 +17,7 @@ namespace ChildDevelopmentLibrary
         public List<Program> Programs { get; set; } = new List<Program>();
         public List<Child> Children { get; set; } = new List<Child>();
 
-        public List<Child> GetChildrenByPeriod(List<Child> children, Period period)
+        public List<Child> GetChildrenByPeriod(List<Child> children, Status period)
         {
             try
             {

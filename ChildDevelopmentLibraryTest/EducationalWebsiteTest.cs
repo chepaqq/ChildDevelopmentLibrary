@@ -20,7 +20,7 @@ namespace ChildDevelopmentLibraryTest
             sub.Children.Add(child);
 
             //Assert          
-            Assert.Contains(child, sub.GetChildrenByPeriod(sub.Children, Period.Signed));
+            Assert.Contains(child, sub.GetChildrenByPeriod(sub.Children, Status.Signed));
         }
 
         [Fact]
@@ -34,10 +34,10 @@ namespace ChildDevelopmentLibraryTest
             //Act
             sub.Programs.Add(program);
             sub.Children.Add(child);
-            child.Period = Period.IsStudying;
+            child.Status = Status.IsStudying;
 
             //Assert
-            Assert.Throws<Exception>(() => sub.GetChildrenByPeriod(null, Period.Signed));
+            Assert.Throws<Exception>(() => sub.GetChildrenByPeriod(null, Status.Signed));
         }
 
         [Fact]
@@ -51,10 +51,10 @@ namespace ChildDevelopmentLibraryTest
             //Act
             sub.Programs.Add(program);
             sub.Children.Add(child);
-            child.Period = Period.IsStudying;
+            child.Status = Status.IsStudying;
 
             //Assert
-            Assert.DoesNotContain(child, sub.GetChildrenByPeriod(sub.Children, Period.Signed));
+            Assert.DoesNotContain(child, sub.GetChildrenByPeriod(sub.Children, Status.Signed));
         }
     }
 }
