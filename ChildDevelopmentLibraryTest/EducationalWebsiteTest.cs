@@ -10,7 +10,7 @@ namespace ChildDevelopmentLibraryTest
     public class EducationalWebsiteTest
     {
         [Fact]
-        public void SubscribeToProgram_MustBeEqual()
+        public void SubscribeToProgram_MustContains()
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
