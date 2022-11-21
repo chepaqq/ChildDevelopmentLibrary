@@ -6,6 +6,7 @@ namespace ChildDevelopmentLibrary
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public bool IsStudied { get; set; } = false;
 
     }
 }
