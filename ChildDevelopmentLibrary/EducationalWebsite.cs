@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ChildDevelopmentLibrary
 {
@@ -45,6 +44,29 @@ namespace ChildDevelopmentLibrary
             }
 
         }
+        public void StartStudying(Child child, Program program)
+        {
+            if (child.Status == Status.Signed)
+            {
+                try
+                {
+                    Programs
+                        .Where(x => x.Name == program.Name)
+                        .Single().Children
+                        .Where(x => x.FirstName == child.FirstName && x.LastName == child.LastName)
+                        .Single().Status = Status.IsStudying;
 
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+            }
+            else
+            {
+                throw new Exception("Error in SubscribeToProgram");
+            }
+
+        }
     }
 }

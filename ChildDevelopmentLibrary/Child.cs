@@ -1,7 +1,5 @@
-﻿using System;
-
-namespace ChildDevelopmentLibrary
-{    
+﻿namespace ChildDevelopmentLibrary
+{
     public class Child
     {
         public string FirstName { get; set; }
