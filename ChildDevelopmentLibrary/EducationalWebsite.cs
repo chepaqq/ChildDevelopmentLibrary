@@ -11,13 +11,11 @@ namespace ChildDevelopmentLibrary
         IsStudying,
         CompletedStudies
     }
-    public class EducationalWebsite
+    public class EducationalWebsite : IEducationalWebsite
     {
         public string Name { get; set; }
-
         public List<Program> Programs { get; set; } = new List<Program>();
         public List<Child> Children { get; set; } = new List<Child>();
-
 
         public void SubscribeToProgram(Child child, Program program)
         {
@@ -41,7 +39,7 @@ namespace ChildDevelopmentLibrary
             }
             else
             {
-                throw new Exception("Error in SubscribeToProgram");
+                throw new Exception();
             }
 
         }
