@@ -5,61 +5,72 @@ using System.Linq;
 using System.Text;
 using TypeMock;
 using Moq;
+using Mock;
 using Xunit;
 using TypeMock.ArrangeActAssert;
+using ChildDevelopmentLibrary.Interfaces;
 
 namespace ChildDevelopmentLibraryTest
 {
     public class EducationalWebsiteTest
     {
-        [Fact]
-        public void SubscribeToProgram_MustContains()
-        {
-            //Arrange
-            var sut = new Moq.Mock<IEducationalWebsite>();
-            Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            Program program = new Program { Name = "ASP.NET Core 7.0" };
+        //[Fact]
+        //public void SubscribeToProgram_MustContains()
+        //{
+        //    //Arrange
+        //    Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
+        //    Program program = new Program { Name = "ASP.NET Core 7.0" };
 
-            //Act
-            sut.Setup(x => x.Children).Returns(new List<Child> { child });
+        //    var sut = new Moq.Mock<IDBWebsite>();
+        //    sut.Setup(x => x.Children).Returns(new List<Child> { child });
 
-            sut.Setup(x => x.Programs).Returns(new List<Program> { new Program {
-                Name = "ASP.NET Core 7.0",
-                Children = new List<Child> { child }
-            } });
+        //    sut.Setup(x => x.Programs).Returns(new List<Program> { new Program {
+        //        Name = "ASP.NET Core 7.0",
+        //        Children = new List<Child> { child }
+        //    } });
 
-            sut.Object.SubscribeToProgram(child, program);
+        //    var sutWebsite = new EducationalWebsite(sut.Object);
 
-            //Assert
-            Assert.Contains(child, sut.Object.Programs
-                .Where(x => x.Name == program.Name).Single().Children);
-        }
+
+        //    //Act        
+        //    sutWebsite.SubscribeToProgram(child, program);
+
+        //    //Assert
+        //    Assert.Contains(child, sut.Object.Programs
+        //        .Where(x => x.Name == program.Name).Single().Children);
+        //}
 
         [Fact]
         public void SubscribeToProgram_MustBeErrorInSubscribeToProgram()
         {
             //Arrange
-            var sut = new Moq.Mock<EducationalWebsite>();
+            var sut = new EducationalWebsite(new DBWebsite());
             var child = new Child();
             child.Status = Status.IsStudying;
 
             //Assert
-            Assert.Throws<Exception>(() => sut.Object.SubscribeToProgram(child, null));
+            Assert.Throws<Exception>(() => sut.SubscribeToProgram(child, null));
         }
 
         [Fact]
         public void SubscribeToProgram_MustBeNullExceptionThroughTheChild()
         {
             //Arrange
+            Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
             Program program = new Program { Name = "ASP.NET Core 7.0" };
-            var sut = new Moq.Mock<IEducationalWebsite>();
 
-            //Act        
-            sut.Setup(x => x.SubscribeToProgram(It.IsAny<Child>(), It.IsAny<Program>()))
-                .Throws(new Exception());
+            var sut = new Moq.Mock<IDBWebsite>();
 
-            //Assert
-            Assert.Throws<Exception>(() => sut.Object.SubscribeToProgram(null, program));
+            sut.Setup(x => x.Children).Returns(new List<Child>());
+            sut.Setup(x => x.Programs).Returns(new List<Program> { new Program {
+                    Name = "ASP.NET Core 7.0",
+                    Children = new List<Child> { child }
+                } });
+
+            var sutWebsite = new EducationalWebsite(sut.Object);
+
+            //Act + Assert
+            Assert.Throws<Exception>(() => sutWebsite.SubscribeToProgram(child, program));
         }
 
         [Fact]
@@ -67,14 +78,17 @@ namespace ChildDevelopmentLibraryTest
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            var sut = new Moq.Mock<IEducationalWebsite>();
+            Program program = new Program { Name = "ASP.NET Core 7.0" };
 
-            //Act        
-            sut.Setup(x => x.SubscribeToProgram(It.IsAny<Child>(), It.IsAny<Program>()))
-                .Throws(new Exception());
+            var sut = new Moq.Mock<IDBWebsite>();
 
-            //Assert
-            Assert.Throws<Exception>(() => sut.Object.SubscribeToProgram(child, null));
+            sut.Setup(x => x.Children).Returns(new List<Child> { child });
+            sut.Setup(x => x.Programs).Returns(new List<Program>());
+
+            var sutWebsite = new EducationalWebsite(sut.Object);
+
+            //Act + Assert
+            Assert.Throws<Exception>(() => sutWebsite.SubscribeToProgram(child, program));
         }
     }
 }

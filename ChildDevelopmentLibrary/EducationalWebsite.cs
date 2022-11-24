@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChildDevelopmentLibrary.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,21 +14,24 @@ namespace ChildDevelopmentLibrary
     }
     public class EducationalWebsite : IEducationalWebsite
     {
+        private readonly IDBWebsite _context;
         public string Name { get; set; }
-        public List<Program> Programs { get; set; } = new List<Program>();
-        public List<Child> Children { get; set; } = new List<Child>();
 
+        public EducationalWebsite(IDBWebsite context)
+        {
+            _context = context;
+        }
         public void SubscribeToProgram(Child child, Program program)
         {
             if (child.Status == Status.Signed)
             {
                 try
                 {
-                    Programs
+                    _context.Programs
                         .Where(x => x.Name == program.Name)
                         .Single().Children
                         .Add(
-                        Children
+                        _context.Children
                         .Where(x => x.FirstName == child.FirstName && x.LastName == child.LastName)
                         .Single());
 
