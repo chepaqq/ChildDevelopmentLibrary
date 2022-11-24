@@ -1,4 +1,5 @@
 ﻿using ChildDevelopmentLibrary;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,53 +9,50 @@ using Xunit;
 namespace ChildDevelopmentLibraryTest
 {
     public class EducationalWebsiteTest
-    {        
+    {
         [Fact]
         public void GetChildrenByPeriod_MustContains()
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            EducationalWebsite sub = new EducationalWebsite { Name = "WebSite" };
+            var sut = new Moq.Mock<IEducationalWebsite>();
 
             //Act
-            sub.Children.Add(child);
+            sut.Setup(x => x.GetChildrenByPeriod(It.IsAny<Status>()))
+                .Returns(new List<Child> { child });
 
             //Assert          
-            Assert.Contains(child, sub.GetChildrenByPeriod(sub.Children, Status.Signed));
+            Assert.Contains(child, sut.Object.GetChildrenByPeriod(Status.Signed));
         }
 
         [Fact]
-        public void GetChildrenByPeriod_MustExeptionNullReferenceByChildren()
+        public void GetChildrenByPeriod_MustDoesNotContainThroughPeriod()
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            Program program = new Program { Name = "ASP.NET Core 7.0" };
-            EducationalWebsite sub = new EducationalWebsite { Name = "WebSite" };
+            var sut = new Moq.Mock<IEducationalWebsite>();
 
             //Act
-            sub.Programs.Add(program);
-            sub.Children.Add(child);
-            child.Status = Status.IsStudying;
+            sut.Setup(x => x.GetChildrenByPeriod(It.IsAny<Status>()))
+               .Returns(new List<Child>
+               { new Child { FirstName = "Igor", LastName = "Radchuk", Status= Status.IsStudying }});
 
             //Assert
-            Assert.Throws<Exception>(() => sub.GetChildrenByPeriod(null, Status.Signed));
+            Assert.DoesNotContain(child, sut.Object.GetChildrenByPeriod(Status.Signed));
         }
 
         [Fact]
-        public void GetChildrenByPeriod_MustExeptionNullReferenceByPeriod()
+        public void GetChildrenByPeriod_MustNullExeptionThroughChildren()
         {
             //Arrange
-            Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            Program program = new Program { Name = "ASP.NET Core 7.0" };
-            EducationalWebsite sub = new EducationalWebsite { Name = "WebSite" };
+            var sut = new Moq.Mock<IEducationalWebsite>();
 
             //Act
-            sub.Programs.Add(program);
-            sub.Children.Add(child);
-            child.Status = Status.IsStudying;
+            sut.Setup(x => x.GetChildrenByPeriod(It.IsAny<Status>()))
+              .Throws(new Exception());
 
             //Assert
-            Assert.DoesNotContain(child, sub.GetChildrenByPeriod(sub.Children, Status.Signed));
+            Assert.Throws<Exception>(() => sut.Object.GetChildrenByPeriod(Status.Signed));
         }
     }
 }
