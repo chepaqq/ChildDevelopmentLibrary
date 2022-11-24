@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ChildDevelopmentLibrary.Models;
 
-namespace ChildDevelopmentLibrary
+namespace ChildDevelopmentLibrary.Interfaces
 {
     public interface IEducationalWebsite
     {
-        public List<Program> Programs { get; set; }
-        public List<Child> Children { get; set; }
         public List<Child> GetChildrenByPeriod(Status period);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ChildDevelopmentLibrary.Interfaces;
+using ChildDevelopmentLibrary.Models;
 
 namespace ChildDevelopmentLibrary
 {
@@ -12,17 +14,20 @@ namespace ChildDevelopmentLibrary
     }
     public class EducationalWebsite : IEducationalWebsite
     {
+        private readonly DBWebsite _context;
         public string Name { get; set; }
 
-        public List<Program> Programs { get; set; } = new List<Program>();
-        public List<Child> Children { get; set; } = new List<Child>();
+        public EducationalWebsite(DBWebsite context)
+        {
+            _context = context;
+        }
 
         public List<Child> GetChildrenByPeriod(Status period)
         {
             try
             {
                 var filter = new ChildFilter();
-                return filter.FilterByPeriod(Children, period);
+                return filter.FilterByPeriod(_context.Children, period);
             }
             catch(Exception)
             {
