@@ -17,14 +17,15 @@ namespace ChildDevelopmentLibraryTest
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            var sut = new Moq.Mock<IEducationalWebsite>();
 
-            //Act
-            sut.Setup(x => x.GetChildrenByPeriod(It.IsAny<Status>()))
-                .Returns(new List<Child> { child });
+            var sut = new Moq.Mock<IDBWebsite>();
 
-            //Assert          
-            Assert.Contains(child, sut.Object.GetChildrenByPeriod(Status.Signed));
+            sut.Setup(x => x.Children).Returns(new List<Child> { child });
+
+            var sutWebsite = new EducationalWebsite(sut.Object);
+
+            //Act + Assert          
+            Assert.Contains(child, sutWebsite.GetChildrenByPeriod(Status.Signed));
         }
 
         [Fact]
@@ -32,29 +33,18 @@ namespace ChildDevelopmentLibraryTest
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            var sut = new Moq.Mock<IEducationalWebsite>();
 
-            //Act
-            sut.Setup(x => x.GetChildrenByPeriod(It.IsAny<Status>()))
-               .Returns(new List<Child>
-               { new Child { FirstName = "Igor", LastName = "Radchuk", Status= Status.IsStudying }});
+            var sut = new Moq.Mock<IDBWebsite>();
 
-            //Assert
-            Assert.DoesNotContain(child, sut.Object.GetChildrenByPeriod(Status.Signed));
-        }
+            sut.Setup(x => x.Children).Returns(new List<Child> { child });
 
-        [Fact]
-        public void GetChildrenByPeriod_MustNullExeptionThroughChildren()
-        {
-            //Arrange
-            var sut = new Moq.Mock<IEducationalWebsite>();
+            var sutWebsite = new EducationalWebsite(sut.Object);
 
-            //Act
-            sut.Setup(x => x.GetChildrenByPeriod(It.IsAny<Status>()))
-              .Throws(new Exception());
+            //Act 
+            child.Status = Status.IsStudying;
 
             //Assert
-            Assert.Throws<Exception>(() => sut.Object.GetChildrenByPeriod(Status.Signed));
+            Assert.DoesNotContain(child, sutWebsite.GetChildrenByPeriod(Status.Signed));
         }
     }
 }

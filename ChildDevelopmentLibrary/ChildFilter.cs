@@ -10,6 +10,5 @@ namespace ChildDevelopmentLibrary
     {
         public List<Child> FilterByPeriod(IEnumerable<Child> children, Status period) =>
             children.Where(m => m.Status == period).ToList();
-
     }
 }
