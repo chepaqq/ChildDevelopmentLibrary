@@ -18,7 +18,6 @@ namespace ChildDevelopmentLibraryTest
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            var sut = new Moq.Mock<IEducationalWebsite>();
 
             //Act
             sut.Setup(x => x.GetChildrenByStatus(It.IsAny<Status>()))
@@ -33,7 +32,6 @@ namespace ChildDevelopmentLibraryTest
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            var sut = new Moq.Mock<IEducationalWebsite>();
 
             //Act
             sut.Setup(x => x.GetChildrenByStatus(It.IsAny<Status>()))
