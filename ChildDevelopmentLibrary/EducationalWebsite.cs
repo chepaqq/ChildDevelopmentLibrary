@@ -15,7 +15,7 @@ namespace ChildDevelopmentLibrary
     }
     public class EducationalWebsite : IEducationalWebsite
     {
-        private readonly DBWebsite _context;
+        private readonly IDBWebsite _context;
 
         public EducationalWebsite(IDBWebsite context)
         {

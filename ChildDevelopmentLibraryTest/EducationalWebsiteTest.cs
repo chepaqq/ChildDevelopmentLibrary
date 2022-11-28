@@ -18,20 +18,22 @@ namespace ChildDevelopmentLibraryTest
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
+            var sut = new Moq.Mock<IEducationalWebsite>();
 
             //Act
             sut.Setup(x => x.GetChildrenByStatus(It.IsAny<Status>()))
-                .Returns(new List<Child> { child });
+                 .Returns(new List<Child> { child });
 
             //Assert          
             Assert.Contains(child, sut.Object.GetChildrenByStatus(Status.Signed));
         }
 
         [Fact]
-        public void GetChildrenByStatus_MustDoesNotContainThroughPeriod()
+        public void GetChildrenByStatus_MustDoesNotContainThroughStatus()
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
+            var sut = new Moq.Mock<IEducationalWebsite>();
 
             //Act
             sut.Setup(x => x.GetChildrenByStatus(It.IsAny<Status>()))
