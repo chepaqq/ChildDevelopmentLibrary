@@ -22,12 +22,12 @@ namespace ChildDevelopmentLibrary
             _context = context;
         }
 
-        public List<Child> GetChildrenByPeriod(Status period)
+        public List<Child> GetChildrenByStatus(Status period)
         {
             try
             {
                 var filter = new ChildFilter();
-                return filter.FilterByPeriod(_context.Children, period);
+                return filter.FilterByStatus(_context.Children, period);
             }
             catch(Exception)
             {

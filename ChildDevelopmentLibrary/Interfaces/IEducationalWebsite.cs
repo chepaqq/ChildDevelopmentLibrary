@@ -7,6 +7,6 @@ namespace ChildDevelopmentLibrary.Interfaces
 {
     public interface IEducationalWebsite
     {
-        public List<Child> GetChildrenByPeriod(Status period);
+        public List<Child> GetChildrenByStatus(Status period);
     }
 }
