@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ChildDevelopmentLibrary.Interfaces;
 using ChildDevelopmentLibrary.Models;
+using Couchbase.Core.Exceptions;
 
 namespace ChildDevelopmentLibrary
 {
@@ -15,7 +16,6 @@ namespace ChildDevelopmentLibrary
     public class EducationalWebsite : IEducationalWebsite
     {
         private readonly DBWebsite _context;
-        public string Name { get; set; }
 
         public EducationalWebsite(DBWebsite context)
         {
@@ -31,7 +31,7 @@ namespace ChildDevelopmentLibrary
             }
             catch(Exception)
             {
-                throw new Exception();
+                throw new InvalidArgumentException();
             }
         }
     }

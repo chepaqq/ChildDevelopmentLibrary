@@ -1,6 +1,7 @@
 ﻿using ChildDevelopmentLibrary;
 using ChildDevelopmentLibrary.Interfaces;
 using ChildDevelopmentLibrary.Models;
+using Couchbase.Core.Exceptions;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -51,10 +52,10 @@ namespace ChildDevelopmentLibraryTest
 
             //Act
             sut.Setup(x => x.GetChildrenByPeriod(It.IsAny<Status>()))
-              .Throws(new Exception());
+              .Throws(new InvalidArgumentException());
 
             //Assert
-            Assert.Throws<Exception>(() => sut.Object.GetChildrenByPeriod(Status.Signed));
+            Assert.Throws<InvalidArgumentException>(() => sut.Object.GetChildrenByPeriod(Status.Signed));
         }
     }
 }
