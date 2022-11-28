@@ -9,37 +9,12 @@ using Mock;
 using Xunit;
 using TypeMock.ArrangeActAssert;
 using ChildDevelopmentLibrary.Interfaces;
+using Couchbase.Core.Exceptions;
 
 namespace ChildDevelopmentLibraryTest
 {
     public class EducationalWebsiteTest
-    {
-        //[Fact]
-        //public void SubscribeToProgram_MustContains()
-        //{
-        //    //Arrange
-        //    Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-        //    Program program = new Program { Name = "ASP.NET Core 7.0" };
-
-        //    var sut = new Moq.Mock<IDBWebsite>();
-        //    sut.Setup(x => x.Children).Returns(new List<Child> { child });
-
-        //    sut.Setup(x => x.Programs).Returns(new List<Program> { new Program {
-        //        Name = "ASP.NET Core 7.0",
-        //        Children = new List<Child> { child }
-        //    } });
-
-        //    var sutWebsite = new EducationalWebsite(sut.Object);
-
-
-        //    //Act        
-        //    sutWebsite.SubscribeToProgram(child, program);
-
-        //    //Assert
-        //    Assert.Contains(child, sut.Object.Programs
-        //        .Where(x => x.Name == program.Name).Single().Children);
-        //}
-
+    {     
         [Fact]
         public void SubscribeToProgram_MustBeErrorInSubscribeToProgram()
         {
@@ -49,7 +24,7 @@ namespace ChildDevelopmentLibraryTest
             child.Status = Status.IsStudying;
 
             //Assert
-            Assert.Throws<Exception>(() => sut.SubscribeToProgram(child, null));
+            Assert.Throws<InvalidArgumentException>(() => sut.SubscribeToProgram(child, null));
         }
 
         [Fact]
@@ -70,7 +45,7 @@ namespace ChildDevelopmentLibraryTest
             var sutWebsite = new EducationalWebsite(sut.Object);
 
             //Act + Assert
-            Assert.Throws<Exception>(() => sutWebsite.SubscribeToProgram(child, program));
+            Assert.Throws<InvalidArgumentException>(() => sutWebsite.SubscribeToProgram(child, program));
         }
 
         [Fact]
@@ -88,7 +63,7 @@ namespace ChildDevelopmentLibraryTest
             var sutWebsite = new EducationalWebsite(sut.Object);
 
             //Act + Assert
-            Assert.Throws<Exception>(() => sutWebsite.SubscribeToProgram(child, program));
+            Assert.Throws<InvalidArgumentException>(() => sutWebsite.SubscribeToProgram(child, program));
         }
     }
 }

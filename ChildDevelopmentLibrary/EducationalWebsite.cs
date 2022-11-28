@@ -1,4 +1,5 @@
 ﻿using ChildDevelopmentLibrary.Interfaces;
+using Couchbase.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,6 @@ namespace ChildDevelopmentLibrary
     public class EducationalWebsite : IEducationalWebsite
     {
         private readonly IDBWebsite _context;
-        public string Name { get; set; }
 
         public EducationalWebsite(IDBWebsite context)
         {
@@ -23,7 +23,7 @@ namespace ChildDevelopmentLibrary
         }
         public void SubscribeToProgram(Child child, Program program)
         {
-            if (child.Status == Status.Signed)
+            if (child != null && child.Status == Status.Signed)
             {
                 try
                 {
@@ -38,12 +38,12 @@ namespace ChildDevelopmentLibrary
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(e.Message);
+                    throw new InvalidArgumentException(e.Message);
                 }
             }
             else
             {
-                throw new Exception();
+                throw new InvalidArgumentException();
             }
 
         }
