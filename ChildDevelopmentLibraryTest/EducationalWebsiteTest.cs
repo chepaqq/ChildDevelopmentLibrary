@@ -7,12 +7,9 @@ using System;
 using System.Linq;
 using System.Text;
 using TypeMock;
-using Moq;
 using Mock;
 using Xunit;
 using TypeMock.ArrangeActAssert;
-using ChildDevelopmentLibrary.Interfaces;
-using Couchbase.Core.Exceptions;
 using System.Collections.Generic;
 
 namespace ChildDevelopmentLibraryTest

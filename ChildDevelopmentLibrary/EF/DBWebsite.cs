@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChildDevelopmentLibrary
+namespace ChildDevelopmentLibrary.EF
 {
-    public class DBWebsite: IDBWebsite
+    public class DBWebsite : IDBWebsite
     {
         public List<Program> Programs { get; set; } = new List<Program>();
         public List<Child> Children { get; set; } = new List<Child>();
