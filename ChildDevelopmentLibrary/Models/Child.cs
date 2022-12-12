@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace ChildDevelopmentLibrary
-{    
+namespace ChildDevelopmentLibrary.Models
+{
     public class Child
     {
         public string FirstName { get; set; }

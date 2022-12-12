@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChildDevelopmentLibrary
+namespace ChildDevelopmentLibrary.Models
 {
     public class Program
     {
