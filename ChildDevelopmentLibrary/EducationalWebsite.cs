@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ChildDevelopmentLibrary.Interfaces;
+using Couchbase.Core.Exceptions;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ChildDevelopmentLibrary
@@ -10,11 +13,40 @@ namespace ChildDevelopmentLibrary
         IsStudying,
         CompletedStudies
     }
-    public class EducationalWebsite
+    public class EducationalWebsite : IEducationalWebsite
     {
-        public string Name { get; set; }
+        private readonly IDBWebsite _context;
 
-        public List<Program> Programs { get; set; } = new List<Program>();
-        public List<Child> Children { get; set; } = new List<Child>();
+        public EducationalWebsite(IDBWebsite context)
+        {
+            _context = context;
+        }
+        public void SubscribeToProgram(Child child, Program program)
+        {
+            if (child != null && child.Status == Status.Signed)
+            {
+                try
+                {
+                    _context.Programs
+                        .Where(x => x.Name == program.Name)
+                        .Single().Children
+                        .Add(
+                        _context.Children
+                        .Where(x => x.FirstName == child.FirstName && x.LastName == child.LastName)
+                        .Single());
+
+                }
+                catch (Exception e)
+                {
+                    throw new InvalidArgumentException(e.Message);
+                }
+            }
+            else
+            {
+                throw new InvalidArgumentException();
+            }
+
+        }
+
     }
 }
