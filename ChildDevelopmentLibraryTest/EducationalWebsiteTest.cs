@@ -164,5 +164,56 @@ namespace ChildDevelopmentLibraryTest
             //Act + Assert
             Assert.Throws<InvalidArgumentException>(() => sutWebsite.StartStudying(child, program));
         }
+
+        [Fact]
+        public void CompleteStudying_MustBeErrorInCompleteStudying()
+        {
+            //Arrange
+            var sut = new EducationalWebsite(new DBWebsite());
+            var child = new Child();
+            child.Status = Status.CompletedStudies;
+
+            //Assert
+            Assert.Throws<InvalidArgumentException>(() => sut.CompleteStudying(child, null));
+        }
+
+        [Fact]
+        public void CompleteStudying_MustBeNullExceptionThroughTheChild()
+        {
+            //Arrange
+            Child child = new Child { FirstName = "Igor", LastName = "Radchuk", Status = Status.Signed };
+            Program program = new Program { Name = "ASP.NET Core 7.0" };
+
+            var sut = new Moq.Mock<IDBWebsite>();
+
+            sut.Setup(x => x.Children).Returns(new List<Child>());
+            sut.Setup(x => x.Programs).Returns(new List<Program> { new Program {
+                    Name = "ASP.NET Core 7.0",
+                    Children = new List<Child> { child }
+                } });
+
+            var sutWebsite = new EducationalWebsite(sut.Object);
+
+            //Act + Assert
+            Assert.Throws<InvalidArgumentException>(() => sutWebsite.CompleteStudying(child, program));
+        }
+
+        [Fact]
+        public void CompleteStudying_MustBeNullExceptionThroughTheProgram()
+        {
+            //Arrange
+            Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
+            Program program = new Program { Name = "ASP.NET Core 7.0" };
+
+            var sut = new Moq.Mock<IDBWebsite>();
+
+            sut.Setup(x => x.Children).Returns(new List<Child> { child });
+            sut.Setup(x => x.Programs).Returns(new List<Program>());
+
+            var sutWebsite = new EducationalWebsite(sut.Object);
+
+            //Act + Assert
+            Assert.Throws<InvalidArgumentException>(() => sutWebsite.CompleteStudying(child, program));
+        }
     }
 }

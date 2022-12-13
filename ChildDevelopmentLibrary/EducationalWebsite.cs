@@ -74,6 +74,30 @@ namespace ChildDevelopmentLibrary
             }
         }
 
+        public void CompleteStudying(Child child, Program program)
+        {
+            if (child != null && child.Status == Status.IsStudying)
+            {
+                try
+                {
+                    _context.Programs
+                        .Where(x => x.Name == program.Name)
+                        .Single().Children
+                        .Where(x => x.FirstName == child.FirstName && x.LastName == child.LastName)
+                        .Single().Status = Status.CompletedStudies;
+
+                }
+                catch (Exception e)
+                {
+                    throw new InvalidArgumentException(e.Message);
+                }
+            }
+            else
+            {
+                throw new InvalidArgumentException();
+            }
+        }
+
         public List<Child> GetChildrenByStatus(Status period)
         {
             try
