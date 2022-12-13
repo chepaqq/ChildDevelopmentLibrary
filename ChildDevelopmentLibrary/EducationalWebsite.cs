@@ -50,9 +50,31 @@ namespace ChildDevelopmentLibrary
             }
 
         }
+        public void StartStudying(Child child, Program program)
+        {
+            if (child != null && child.Status == Status.Signed)
+            {
+                try
+                {
+                    _context.Programs
+                        .Where(x => x.Name == program.Name)
+                        .Single().Children
+                        .Where(x => x.FirstName == child.FirstName && x.LastName == child.LastName)
+                        .Single().Status = Status.IsStudying;
 
-     
-        public List<Child> GetChildrenByStatus(Status period)
+                }
+                catch (Exception e)
+                {
+                    throw new InvalidArgumentException(e.Message);
+                }
+            }
+            else
+            {
+                throw new InvalidArgumentException();
+            }
+
+
+            public List<Child> GetChildrenByStatus(Status period)
         {
             try
             {
