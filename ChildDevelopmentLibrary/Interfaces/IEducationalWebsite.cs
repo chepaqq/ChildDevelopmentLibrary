@@ -9,6 +9,8 @@ namespace ChildDevelopmentLibrary.Interfaces
     {
         public List<Child> GetChildrenByStatus(Status period);
         public void SubscribeToProgram(Child child, Program program);
+        public void StartStudying(Child child, Program program);
+        public void CompleteStudying(Child child, Program program);
 
     }
 }

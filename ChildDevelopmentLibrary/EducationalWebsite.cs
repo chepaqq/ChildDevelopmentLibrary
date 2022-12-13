@@ -4,9 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ChildDevelopmentLibrary.Interfaces;
 using ChildDevelopmentLibrary.Models;
-using Couchbase.Core.Exceptions;
 
 namespace ChildDevelopmentLibrary
 {
