@@ -13,6 +13,7 @@ using Xunit;
 using TypeMock.ArrangeActAssert;
 using ChildDevelopmentLibrary.Interfaces;
 using Couchbase.Core.Exceptions;
+using System.Collections.Generic;
 
 namespace ChildDevelopmentLibraryTest
 {
@@ -114,73 +115,54 @@ namespace ChildDevelopmentLibraryTest
             Assert.Throws<InvalidArgumentException>(() => sutWebsite.SubscribeToProgram(child, program));
         }
         [Fact]
-        public void StartStudying_MustBeEqual()
+        public void StartStudying_MustBeErrorInStartStudying()
         {
             //Arrange
-            Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            Program program = new Program { Name = "ASP.NET Core 7.0" };
-            EducationalWebsite sub = new EducationalWebsite { Name = "WebSite" };
-
-            //Act
-            sub.Programs.Add(program);
-            sub.Children.Add(child);
-            sub.SubscribeToProgram(child, program);
-            sub.StartStudying(child, program);
-
-            //Assert          
-            Assert.Contains(child, sub.Programs.Where(x => x.Name == program.Name).Single().Children);
-            Assert.Equal(Status.IsStudying, sub.Programs
-                .Where(x => x.Name == program.Name).Single()
-                .Children
-                .Where(x => x.FirstName == child.FirstName && x.LastName == child.LastName)
-                .Single().Status);
-        }
-
-        [Fact]
-        public void StartStudying_MustBeErrorInSubscribeToProgram()
-        {
-            //Arrange
-            Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            Program program = new Program { Name = "ASP.NET Core 7.0" };
-            EducationalWebsite sub = new EducationalWebsite { Name = "WebSite" };
-
-            //Act
-            sub.Programs.Add(program);
-            sub.Children.Add(child);
+            var sut = new EducationalWebsite(new DBWebsite());
+            var child = new Child();
             child.Status = Status.IsStudying;
 
             //Assert
-            Assert.Throws<Exception>(() => sub.StartStudying(child, program));
+            Assert.Throws<InvalidArgumentException>(() => sut.StartStudying(child, null));
         }
 
         [Fact]
-        public void StartStudying_MustBeArgumentNullExceptionThroughTheChild()
+        public void StartStudying_MustBeNullExceptionThroughTheChild()
+        {
+            //Arrange
+            Child child = new Child { FirstName = "Igor", LastName = "Radchuk", Status = Status.CompletedStudies };
+            Program program = new Program { Name = "ASP.NET Core 7.0" };
+
+            var sut = new Moq.Mock<IDBWebsite>();
+
+            sut.Setup(x => x.Children).Returns(new List<Child>());
+            sut.Setup(x => x.Programs).Returns(new List<Program> { new Program {
+                    Name = "ASP.NET Core 7.0",
+                    Children = new List<Child> { child }
+                } });
+
+            var sutWebsite = new EducationalWebsite(sut.Object);
+
+            //Act + Assert
+            Assert.Throws<InvalidArgumentException>(() => sutWebsite.StartStudying(child, program));
+        }
+
+        [Fact]
+        public void StartStudying_MustBeNullExceptionThroughTheProgram()
         {
             //Arrange
             Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
             Program program = new Program { Name = "ASP.NET Core 7.0" };
-            EducationalWebsite sub = new EducationalWebsite { Name = "WebSite" };
 
-            //Act
-            sub.Programs.Add(program);
+            var sut = new Moq.Mock<IDBWebsite>();
 
-            //Assert
-            Assert.Throws<Exception>(() => sub.StartStudying(child, program));
-        }
+            sut.Setup(x => x.Children).Returns(new List<Child> { child });
+            sut.Setup(x => x.Programs).Returns(new List<Program>());
 
-        [Fact]
-        public void StartStudying_MustBeArgumentNullExceptionThroughTheProgram()
-        {
-            //Arrange
-            Child child = new Child { FirstName = "Igor", LastName = "Radchuk" };
-            Program program = new Program { Name = "ASP.NET Core 7.0" };
-            EducationalWebsite sub = new EducationalWebsite { Name = "WebSite" };
+            var sutWebsite = new EducationalWebsite(sut.Object);
 
-            //Act
-            sub.Children.Add(child);
-
-            //Assert
-            Assert.Throws<Exception>(() => sub.StartStudying(child, program));
+            //Act + Assert
+            Assert.Throws<InvalidArgumentException>(() => sutWebsite.StartStudying(child, program));
         }
     }
 }

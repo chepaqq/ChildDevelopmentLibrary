@@ -72,16 +72,16 @@ namespace ChildDevelopmentLibrary
             {
                 throw new InvalidArgumentException();
             }
+        }
 
-
-            public List<Child> GetChildrenByStatus(Status period)
+        public List<Child> GetChildrenByStatus(Status period)
         {
             try
             {
                 var filter = new ChildFilter();
                 return filter.FilterByStatus(_context.Children, period);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new InvalidArgumentException();
             }
