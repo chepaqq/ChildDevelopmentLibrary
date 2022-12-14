@@ -12,9 +12,16 @@ namespace ChildDevelopmentLibrary.DAL.DBContext
     {
         public DbSet<EducationalProgram> Programs { get; set; } = null!;
         public DbSet<Child> Children { get; set; } = null!;
+
+        public DBWebsite()
+        {
+
+        }
+
         public DBWebsite(DbContextOptions<DBWebsite> options)
             : base(options)
         {
+        
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

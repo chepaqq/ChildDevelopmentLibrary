@@ -29,7 +29,7 @@ namespace ChildDevelopmentLibrary.DAL.Entities
         [Required]
         public Status Status { get; set; } = Status.CompletedStudies;
 
-        public int ProgramId { get; set; }
+        public int? ProgramId { get; set; }
         public EducationalProgram Program { get; set; }
     }
 }

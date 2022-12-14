@@ -4,6 +4,7 @@ using ChildDevelopmentLibrary.DAL.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChildDevelopmentLibrary.DAL.Migrations
 {
     [DbContext(typeof(DBWebsite))]
-    partial class DBWebsiteModelSnapshot : ModelSnapshot
+    [Migration("20221214203119_addNullToProgrmaId")]
+    partial class addNullToProgrmaId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +53,7 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
 
                     b.HasIndex("ProgramId");
 
-                    b.ToTable("Children", (string)null);
+                    b.ToTable("Children");
 
                     b.HasData(
                         new
@@ -87,7 +89,7 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Programs", (string)null);
+                    b.ToTable("Programs");
 
                     b.HasData(
                         new

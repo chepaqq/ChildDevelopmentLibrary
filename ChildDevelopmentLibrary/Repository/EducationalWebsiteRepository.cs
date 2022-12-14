@@ -7,22 +7,29 @@ using ChildDevelopmentLibrary.Models;
 using ChildDevelopmentLibrary.BLL.Services.Interfaces;
 using ChildDevelopmentLibrary.DAL.Interfaces;
 using ChildDevelopmentLibrary.DAL.DBContext;
+using ChildDevelopmentLibrary.DAL.Entities;
+using AutoMapper;
 
 namespace ChildDevelopmentLibrary.BLL.Repository
-{
-    public enum Status
-    {
-        Signed,
-        IsStudying,
-        CompletedStudies
-    }
+{    
     public class EducationalWebsiteRepository : IEducationalWebsiteRepository
     {
-        private readonly DBWebsite _context;
+        private readonly IDBWebsite _context;
+        private readonly IMapper _mapper;
 
-        public EducationalWebsiteRepository(DBWebsite context)
+        public EducationalWebsiteRepository(IDBWebsite context)
         {
-            _context = context;
+            _context = context ??
+                throw new ArgumentNullException(nameof(context));
+        }
+
+        public EducationalWebsiteRepository(DBWebsite context, IMapper mapper)
+        {
+            _context = context ??
+                throw new ArgumentNullException(nameof(context));
+
+            _mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
         }
         public void SubscribeToProgram(ChildDto child, EducationalProgramDto program)
         {
@@ -30,17 +37,11 @@ namespace ChildDevelopmentLibrary.BLL.Repository
             {
                 try
                 {
-                    //_context.Children.Where(x => x.Id == child.Id);
+                    var childEdit = _context.Children.Where(x => x.Id == child.Id).Single();
+                    childEdit.Status = Status.Signed;
 
-                    //_context.Programs
-                    //    .Where(x => x.Name == program.Name)
-                    //    .Single().Children
-                    //    .Add(
-                    //    _context.Children
-                    //    .Where(x => x.FirstName == child.FirstName && x.LastName == child.LastName)
-                    //    .Single());
-
-                    //_context.Add(child);
+                    _context.Programs.Where(x => x.Id == program.Id).Single().Children.Add(childEdit);
+                   
                 }
                 catch (Exception e)
                 {
@@ -59,11 +60,8 @@ namespace ChildDevelopmentLibrary.BLL.Repository
             {
                 try
                 {
-                    //_context.Programs
-                    //    .Where(x => x.Name == program.Name)
-                    //    .Single().Children
-                    //    .Where(x => x.FirstName == child.FirstName && x.LastName == child.LastName)
-                    //    .Single().Status = Status.IsStudying;
+                    _context.Programs.Where(x => x.Id == program.Id).Single()
+                        .Children.Where(x => x.Id == child.Id).Single().Status = Status.IsStudying;                   
 
                 }
                 catch (Exception e)
@@ -83,11 +81,10 @@ namespace ChildDevelopmentLibrary.BLL.Repository
             {
                 try
                 {
-                    //_context.Programs
-                    //    .Where(x => x.Name == program.Name)
-                    //    .Single().Children
-                    //    .Where(x => x.FirstName == child.FirstName && x.LastName == child.LastName)
-                    //    .Single().Status = Status.CompletedStudies;
+                    var childEdit = _context.Children.Where(x => x.Id == child.Id).Single();
+                    childEdit.Status = Status.CompletedStudies;
+
+                    _context.Programs.Where(x => x.Id == program.Id).Single().Children.Remove(childEdit);
 
                 }
                 catch (Exception e)
@@ -105,9 +102,8 @@ namespace ChildDevelopmentLibrary.BLL.Repository
         {
             try
             {
-                //var filter = new ChildFilter();
-                //return filter.FilterByStatus(_context.Children, period);
-                return new List<ChildDto>();
+                var filter = new ChildFilter();
+                return filter.FilterByStatus(_mapper.Map<IEnumerable<ChildDto>>(_context.Children.ToList()), period);
             }
             catch (Exception e)
             {

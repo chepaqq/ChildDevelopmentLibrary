@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ChildDevelopmentLibrary.DAL.Entities;
 using ChildDevelopmentLibrary.Models;
 
 namespace ChildDevelopmentLibrary.BLL.Repository

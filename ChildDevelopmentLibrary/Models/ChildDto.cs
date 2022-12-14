@@ -1,4 +1,5 @@
 ﻿using ChildDevelopmentLibrary.BLL.Repository;
+using ChildDevelopmentLibrary.DAL.Entities;
 using System;
 
 namespace ChildDevelopmentLibrary.Models

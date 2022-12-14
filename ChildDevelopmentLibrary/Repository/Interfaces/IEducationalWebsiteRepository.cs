@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ChildDevelopmentLibrary.BLL.Repository;
+using ChildDevelopmentLibrary.DAL.Entities;
 using ChildDevelopmentLibrary.Models;
 
 namespace ChildDevelopmentLibrary.BLL.Services.Interfaces
