@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using ChildDevelopmentLibrary.Models;
 
-namespace ChildDevelopmentLibrary
+namespace ChildDevelopmentLibrary.BLL.Repository
 {
     public class ChildFilter
     {

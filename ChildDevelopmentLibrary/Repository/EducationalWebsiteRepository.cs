@@ -8,7 +8,7 @@ using ChildDevelopmentLibrary.BLL.Services.Interfaces;
 using ChildDevelopmentLibrary.DAL.Interfaces;
 using ChildDevelopmentLibrary.DAL.DBContext;
 
-namespace ChildDevelopmentLibrary
+namespace ChildDevelopmentLibrary.BLL.Repository
 {
     public enum Status
     {

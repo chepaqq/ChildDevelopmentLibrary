@@ -12,7 +12,7 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                 name: "Programs",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
@@ -25,12 +25,12 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                 name: "Children",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    ProgramId = table.Column<long>(type: "bigint", nullable: false)
+                    ProgramId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,22 +46,22 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Programs",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 1L, "ASP.NET Core 7" });
+                values: new object[] { 1, "ASP.NET Core 7" });
 
             migrationBuilder.InsertData(
                 table: "Programs",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 2L, "PHP" });
+                values: new object[] { 2, "PHP" });
 
             migrationBuilder.InsertData(
                 table: "Children",
                 columns: new[] { "Id", "FirstName", "LastName", "ProgramId", "Status" },
-                values: new object[] { 1L, "Igor", "Radchuk", 1L, 2 });
+                values: new object[] { 1, "Igor", "Radchuk", 1, 2 });
 
             migrationBuilder.InsertData(
                 table: "Children",
                 columns: new[] { "Id", "FirstName", "LastName", "ProgramId", "Status" },
-                values: new object[] { 2L, "Petro", "Ostap", 1L, 2 });
+                values: new object[] { 2, "Petro", "Ostap", 1, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Children_ProgramId",

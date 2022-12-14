@@ -16,7 +16,7 @@ namespace ChildDevelopmentLibrary.DAL.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -29,7 +29,7 @@ namespace ChildDevelopmentLibrary.DAL.Entities
         [Required]
         public Status Status { get; set; } = Status.CompletedStudies;
 
-        public long ProgramId { get; set; }
+        public int ProgramId { get; set; }
         public EducationalProgram Program { get; set; }
     }
 }

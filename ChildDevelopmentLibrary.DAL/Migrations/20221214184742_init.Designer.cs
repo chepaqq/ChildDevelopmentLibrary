@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChildDevelopmentLibrary.DAL.Migrations
 {
     [DbContext(typeof(DBWebsite))]
-    [Migration("20221213224912_init")]
+    [Migration("20221214184742_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,11 +25,11 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
 
             modelBuilder.Entity("ChildDevelopmentLibrary.DAL.Entities.Child", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -41,8 +41,8 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long>("ProgramId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ProgramId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -56,29 +56,29 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             FirstName = "Igor",
                             LastName = "Radchuk",
-                            ProgramId = 1L,
+                            ProgramId = 1,
                             Status = 2
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
                             FirstName = "Petro",
                             LastName = "Ostap",
-                            ProgramId = 1L,
+                            ProgramId = 1,
                             Status = 2
                         });
                 });
 
             modelBuilder.Entity("ChildDevelopmentLibrary.DAL.Entities.EducationalProgram", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -92,12 +92,12 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             Name = "ASP.NET Core 7"
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
                             Name = "PHP"
                         });
                 });

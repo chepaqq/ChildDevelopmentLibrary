@@ -1,3 +1,5 @@
+using ChildDevelopmentLibrary.BLL.Repository;
+using ChildDevelopmentLibrary.BLL.Services.Interfaces;
 using ChildDevelopmentLibrary.DAL.DBContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DBWebsite>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IEducationalWebsiteRepository, EducationalWebsiteRepository>();
 
 var app = builder.Build();
 
