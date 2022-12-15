@@ -54,14 +54,24 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                 values: new object[] { 2, "PHP" });
 
             migrationBuilder.InsertData(
-                table: "Children",
-                columns: new[] { "Id", "FirstName", "LastName", "ProgramId", "Status" },
-                values: new object[] { 1, "Igor", "Radchuk", 1, 2 });
+                table: "Programs",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "Java" });
 
             migrationBuilder.InsertData(
                 table: "Children",
                 columns: new[] { "Id", "FirstName", "LastName", "ProgramId", "Status" },
-                values: new object[] { 2, "Petro", "Ostap", 1, 2 });
+                values: new object[,]
+                {
+                    { 1, "Igor", "Radchuk", 1, 2 },
+                    { 2, "Petro", "Ostapchuk", 1, 2 },
+                    { 3, "Ivan", "Chug", 1, 2 },
+                    { 4, "Andriy", "Oshuta", 1, 2 },
+                    { 5, "Nazar", "Melnyk", 1, 2 },
+                    { 6, "Dmitro", "Honchar", 1, 2 },
+                    { 7, "Stepan", "Bandera", 1, 2 },
+                    { 8, "Taras", "Shevchenko", 1, 2 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Children_ProgramId",

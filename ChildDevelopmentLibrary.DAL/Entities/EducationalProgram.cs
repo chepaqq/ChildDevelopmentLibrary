@@ -16,6 +16,6 @@ namespace ChildDevelopmentLibrary.DAL.Entities
         [MaxLength(100)]
         public string Name { get; set; }
 
-        public List<Child> Children { get; set; }
+        public List<Child> Children { get; set; } 
     }
 }

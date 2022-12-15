@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChildDevelopmentLibrary.DAL.Migrations
 {
     [DbContext(typeof(DBWebsite))]
-    [Migration("20221214203119_addNullToProgrmaId")]
-    partial class addNullToProgrmaId
+    [Migration("20221215224535_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,7 +68,55 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                         {
                             Id = 2,
                             FirstName = "Petro",
-                            LastName = "Ostap",
+                            LastName = "Ostapchuk",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FirstName = "Ivan",
+                            LastName = "Chug",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FirstName = "Andriy",
+                            LastName = "Oshuta",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FirstName = "Nazar",
+                            LastName = "Melnyk",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FirstName = "Dmitro",
+                            LastName = "Honchar",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FirstName = "Stepan",
+                            LastName = "Bandera",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FirstName = "Taras",
+                            LastName = "Shevchenko",
                             ProgramId = 1,
                             Status = 2
                         });
@@ -101,6 +149,11 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                         {
                             Id = 2,
                             Name = "PHP"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Java"
                         });
                 });
 

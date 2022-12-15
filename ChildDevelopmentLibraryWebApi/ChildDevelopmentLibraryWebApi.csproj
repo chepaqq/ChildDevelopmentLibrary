@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ChildDevelopmentLibrary.DAL\ChildDevelopmentLibrary.DAL.csproj" />
     <ProjectReference Include="..\ChildDevelopmentLibrary\ChildDevelopmentLibrary.BLL.csproj" />
   </ItemGroup>

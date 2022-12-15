@@ -9,39 +9,37 @@ using ChildDevelopmentLibrary.DAL.Interfaces;
 using ChildDevelopmentLibrary.DAL.DBContext;
 using ChildDevelopmentLibrary.DAL.Entities;
 using AutoMapper;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChildDevelopmentLibrary.BLL.Repository
-{    
+{
     public class EducationalWebsiteRepository : IEducationalWebsiteRepository
     {
-        private readonly IDBWebsite _context;
-        private readonly IMapper _mapper;
+        private readonly DBWebsite _context;
 
-        public EducationalWebsiteRepository(IDBWebsite context)
+        public EducationalWebsiteRepository(DBWebsite context)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
         }
 
-        public EducationalWebsiteRepository(DBWebsite context, IMapper mapper)
+        public async Task SubscribeToProgram(int childId, int programId)
         {
-            _context = context ??
-                throw new ArgumentNullException(nameof(context));
-
-            _mapper = mapper ??
-                throw new ArgumentNullException(nameof(mapper));
-        }
-        public void SubscribeToProgram(ChildDto child, EducationalProgramDto program)
-        {
-            if (child != null && child.Status == Status.CompletedStudies)
+            if (childId > 0)
             {
                 try
                 {
-                    var childEdit = _context.Children.Where(x => x.Id == child.Id).Single();
-                    childEdit.Status = Status.Signed;
+                    var childEdit = await GetChild(childId);
+                    var programEdit = await GetProgram(programId);
 
-                    _context.Programs.Where(x => x.Id == program.Id).Single().Children.Add(childEdit);
-                   
+                    if (childEdit.Status == Status.CompletedStudies
+                        && childEdit != null
+                        && programEdit != null)
+                    {
+                        childEdit.Status = Status.Signed;
+                        programEdit.Children.Add(childEdit);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -54,15 +52,24 @@ namespace ChildDevelopmentLibrary.BLL.Repository
             }
 
         }
-        public void StartStudying(ChildDto child, EducationalProgramDto program)
+        public async Task StartStudying(int childId, int programId)
         {
-            if (child != null && child.Status == Status.Signed)
+            if (childId > 0)
             {
                 try
                 {
-                    _context.Programs.Where(x => x.Id == program.Id).Single()
-                        .Children.Where(x => x.Id == child.Id).Single().Status = Status.IsStudying;                   
+                    var programEdit = await GetProgram(programId);
+                    var childEdit = await GetChild(childId);
 
+                    if (childEdit.Status == Status.Signed
+                        && childEdit != null
+                        && programEdit != null)
+                    {
+                        if (childEdit.ProgramId == programId)
+                        {
+                            childEdit.Status = Status.IsStudying;
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
@@ -75,17 +82,25 @@ namespace ChildDevelopmentLibrary.BLL.Repository
             }
         }
 
-        public void CompleteStudying(ChildDto child, EducationalProgramDto program)
+        public async Task CompleteStudying(int childId, int programId)
         {
-            if (child != null && child.Status == Status.IsStudying)
+            if (childId > 0)
             {
                 try
                 {
-                    var childEdit = _context.Children.Where(x => x.Id == child.Id).Single();
-                    childEdit.Status = Status.CompletedStudies;
+                    var programEdit = await GetProgram(programId);
+                    var childEdit = await GetChild(childId);
 
-                    _context.Programs.Where(x => x.Id == program.Id).Single().Children.Remove(childEdit);
-
+                    if (childEdit.Status == Status.IsStudying
+                        && childEdit != null
+                        && programEdit != null)
+                    {
+                        if (childEdit.ProgramId == programId)
+                        {
+                            childEdit.Status = Status.CompletedStudies;
+                            programEdit.Children.Remove(childEdit);
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
@@ -98,17 +113,33 @@ namespace ChildDevelopmentLibrary.BLL.Repository
             }
         }
 
-        public List<ChildDto> GetChildrenByStatus(Status period)
+        public async Task<IEnumerable<Child>> GetChildrenByStatus(Status period)
         {
             try
             {
-                var filter = new ChildFilter();
-                return filter.FilterByStatus(_mapper.Map<IEnumerable<ChildDto>>(_context.Children.ToList()), period);
+                return await ChildFilter.FilterByStatus(_context.Children, period);
             }
             catch (Exception e)
             {
                 throw new InvalidArgumentException(e.Message);
             }
+        }
+
+        public async Task<Child> GetChild(int cityId)
+        {
+            return await _context.Children
+                  .Where(c => c.Id == cityId).FirstOrDefaultAsync();
+        }
+
+        public async Task<EducationalProgram> GetProgram(int programId)
+        {
+            return await _context.Programs
+                  .Where(c => c.Id == programId).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync() >= 0);
         }
     }
 }

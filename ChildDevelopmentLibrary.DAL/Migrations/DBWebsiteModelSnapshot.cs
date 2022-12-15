@@ -51,7 +51,7 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
 
                     b.HasIndex("ProgramId");
 
-                    b.ToTable("Children", (string)null);
+                    b.ToTable("Children");
 
                     b.HasData(
                         new
@@ -66,7 +66,55 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                         {
                             Id = 2,
                             FirstName = "Petro",
-                            LastName = "Ostap",
+                            LastName = "Ostapchuk",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FirstName = "Ivan",
+                            LastName = "Chug",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FirstName = "Andriy",
+                            LastName = "Oshuta",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FirstName = "Nazar",
+                            LastName = "Melnyk",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FirstName = "Dmitro",
+                            LastName = "Honchar",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FirstName = "Stepan",
+                            LastName = "Bandera",
+                            ProgramId = 1,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FirstName = "Taras",
+                            LastName = "Shevchenko",
                             ProgramId = 1,
                             Status = 2
                         });
@@ -87,7 +135,7 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Programs", (string)null);
+                    b.ToTable("Programs");
 
                     b.HasData(
                         new
@@ -99,6 +147,11 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                         {
                             Id = 2,
                             Name = "PHP"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Java"
                         });
                 });
 
