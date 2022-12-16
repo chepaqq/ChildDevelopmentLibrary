@@ -32,7 +32,7 @@ namespace ChildDevelopmentLibraryTest
         //    sut.Setup(x => x.GetChildrenByStatus(It.IsAny<Status>()))
         //         .ReturnsAsync(new List<Child> { child });
 
-        //    //Assert          
+        //    //Assert
         //    Assert.Contains(child, await sut.Object.GetChildrenByStatus(Status.Signed));
         //}
 
@@ -93,7 +93,7 @@ namespace ChildDevelopmentLibraryTest
         //    //Act + Assert
         //    Assert.Throws<InvalidArgumentException>(() => sutWebsite.SubscribeToProgram(childDto, programDto));
         //}
-       
+
         //[Fact]
         //public void StartStudying_MustBeErrorInStartStudying()
         //{

@@ -31,14 +31,14 @@ namespace ChildDevelopmentLibrary.BLL.Repository
                 try
                 {
                     var childEdit = await GetChild(childId);
-                    var programEdit = await GetProgram(programId);
+                    var program = await GetProgram(programId);
 
                     if (childEdit.Status == Status.CompletedStudies
                         && childEdit != null
-                        && programEdit != null)
+                        && program != null)
                     {
                         childEdit.Status = Status.Signed;
-                        programEdit.Children.Add(childEdit);
+                        childEdit.Program = program;
                     }
                 }
                 catch (Exception e)

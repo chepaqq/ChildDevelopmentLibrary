@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChildDevelopmentLibrary.DAL.Migrations
 {
     [DbContext(typeof(DBWebsite))]
-    [Migration("20221215224535_init")]
-    partial class init
+    [Migration("20221216100609_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,7 +43,6 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("ProgramId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -161,9 +160,7 @@ namespace ChildDevelopmentLibrary.DAL.Migrations
                 {
                     b.HasOne("ChildDevelopmentLibrary.DAL.Entities.EducationalProgram", "Program")
                         .WithMany("Children")
-                        .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProgramId");
 
                     b.Navigation("Program");
                 });

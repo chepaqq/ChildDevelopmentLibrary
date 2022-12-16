@@ -47,8 +47,7 @@ namespace ChildDevelopmentLibrary.DAL.DBContext
                .Entity<Child>()
                .HasOne(x => x.Program)
                .WithMany(x => x.Children)
-               .HasForeignKey(x=>x.ProgramId)
-               .IsRequired();
+               .HasForeignKey(x=>x.ProgramId);
 
             base.OnModelCreating(modelBuilder);
         }
