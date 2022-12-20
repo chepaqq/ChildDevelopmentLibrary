@@ -26,7 +26,7 @@ namespace ChildDevelopmentLibrary.BLL.Repository
 
         public async Task SubscribeToProgram(int childId, int programId)
         {
-            if (childId > 0)
+            if (childId > 0 && programId > 0)
             {
                 try
                 {
@@ -54,7 +54,7 @@ namespace ChildDevelopmentLibrary.BLL.Repository
         }
         public async Task StartStudying(int childId, int programId)
         {
-            if (childId > 0)
+            if (childId > 0 && programId > 0)
             {
                 try
                 {
@@ -84,7 +84,7 @@ namespace ChildDevelopmentLibrary.BLL.Repository
 
         public async Task CompleteStudying(int childId, int programId)
         {
-            if (childId > 0)
+            if (childId > 0 && programId > 0)
             {
                 try
                 {
@@ -127,6 +127,9 @@ namespace ChildDevelopmentLibrary.BLL.Repository
 
         public async Task<Child> GetChild(int cityId)
         {
+            var temp = await _context.Children
+                  .Where(c => c.Id == cityId).FirstOrDefaultAsync();
+            int a = 0;
             return await _context.Children
                   .Where(c => c.Id == cityId).FirstOrDefaultAsync();
         }
