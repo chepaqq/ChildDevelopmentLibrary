@@ -126,10 +126,7 @@ namespace ChildDevelopmentLibrary.BLL.Repository
         }
 
         public async Task<Child> GetChild(int cityId)
-        {
-            var temp = await _context.Children
-                  .Where(c => c.Id == cityId).FirstOrDefaultAsync();
-            int a = 0;
+        {           
             return await _context.Children
                   .Where(c => c.Id == cityId).FirstOrDefaultAsync();
         }
