@@ -26,7 +26,7 @@ namespace ChildDevelopmentLibrary.DAL.DBContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            EducationalProgram program1 = new EducationalProgram { Id = 1, Name = "ASP.NET Core 7" };
+            /*EducationalProgram program1 = new EducationalProgram { Id = 1, Name = "ASP.NET Core 7" };
             EducationalProgram program2 = new EducationalProgram { Id = 2, Name = "PHP" };
             EducationalProgram program3 = new EducationalProgram { Id = 3, Name = "Java" };
 
@@ -40,7 +40,7 @@ namespace ChildDevelopmentLibrary.DAL.DBContext
             Child child8 = new Child { Id = 8, ProgramId = 1, FirstName = "Taras", LastName = "Shevchenko", Status = Status.IsStudying };
 
             modelBuilder.Entity<EducationalProgram>().HasData(program1, program2, program3);
-            modelBuilder.Entity<Child>().HasData(child1, child2, child3, child4, child5, child6, child7, child8);
+            modelBuilder.Entity<Child>().HasData(child1, child2, child3, child4, child5, child6, child7, child8);*/
 
 
             modelBuilder
@@ -48,6 +48,16 @@ namespace ChildDevelopmentLibrary.DAL.DBContext
                .HasOne(x => x.Program)
                .WithMany(x => x.Children)
                .HasForeignKey(x=>x.ProgramId);
+
+            modelBuilder.Entity<Child>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<EducationalProgram>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+            });
 
             base.OnModelCreating(modelBuilder);
         }

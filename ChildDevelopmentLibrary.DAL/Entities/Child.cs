@@ -16,7 +16,6 @@ namespace ChildDevelopmentLibrary.DAL.Entities
     public class Child
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
