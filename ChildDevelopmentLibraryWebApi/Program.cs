@@ -32,8 +32,13 @@ var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<DBWebsite>();
-    db.Database.Migrate();
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<DBWebsite>();
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
 }
 using (var scope = scopeFactory.CreateScope())
 {
