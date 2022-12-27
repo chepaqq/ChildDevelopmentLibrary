@@ -12,7 +12,7 @@ services:
   sqlserver2022:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     container_name: sqlserver2022
-    ports: # not actually needed, because the two services are on the same network
+    ports:
       - "1433:1433"
     environment:
       - ACCEPT_EULA=y
