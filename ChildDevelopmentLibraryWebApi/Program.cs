@@ -30,12 +30,16 @@ var app = builder.Build();
 //Seeder
 var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DBWebsite>();
+    db.Database.Migrate();
+}
 using (var scope = scopeFactory.CreateScope())
 {
     var service = scope.ServiceProvider.GetService<DataSeeder>();
     service.Initial();
 }
-
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
@@ -46,9 +50,4 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<DBWebsite>();
-    db.Database.Migrate();
-}
 app.Run();
